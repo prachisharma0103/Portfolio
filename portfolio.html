@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prachi Kiran Sharma — The Palghar Line</title>
+<meta name="description" content="Prachi Kiran Sharma — AIML engineering student, published ML researcher and web developer. A portfolio that runs on the Palghar Line.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=DotGothic16&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Noto+Sans+Devanagari:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#0b0f17; --night2:#121826; --board:#04060a;
+  --amber:#ffb627; --amber-dim:#7a5a14;
+  --paper:#f4ead5; --paper2:#e9dcc0; --ink:#17181c;
+  --signal:#ec4a32; --teal:#2fb5a5; --blue:#3a63e0; --yellow:#f7c92b;
+  --line:#2a3347;
+  --f-display:'Bricolage Grotesque',system-ui,sans-serif;
+  --f-serif:'Instrument Serif',Georgia,serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,monospace;
+  --f-dot:'DotGothic16','IBM Plex Mono',monospace;
+  --f-dev:'Noto Sans Devanagari',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--night);color:#e8ecf4;font-family:var(--f-display);line-height:1.55;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  background-image:
+    repeating-linear-gradient(90deg,transparent 0 79px,rgba(255,255,255,.025) 79px 80px),
+    repeating-linear-gradient(0deg,transparent 0 79px,rgba(255,255,255,.025) 79px 80px);
+}
+a{color:inherit}
+::selection{background:var(--amber);color:#000}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px 0 92px}
+section{padding:110px 0 40px;position:relative}
+
+/* ---------- RAIL ---------- */
+.rail{position:fixed;left:0;top:0;bottom:0;width:72px;z-index:50;pointer-events:none}
+.rail .track{position:absolute;left:36px;top:9vh;bottom:9vh;width:0;border-left:3px dashed #39435c}
+.rail .done{position:absolute;left:35px;top:9vh;width:5px;height:0;background:linear-gradient(var(--amber),var(--signal));border-radius:3px;box-shadow:0 0 14px rgba(255,182,39,.6)}
+.stn{position:absolute;left:28px;width:18px;height:18px;border-radius:50%;background:var(--night);border:3px solid #55618180;pointer-events:auto;transition:.3s;transform:translateY(-50%)}
+.stn:hover,.stn.on{border-color:var(--amber);background:var(--amber);box-shadow:0 0 0 6px rgba(255,182,39,.18)}
+.stn span{position:absolute;left:30px;top:50%;transform:translateY(-50%);white-space:nowrap;font:500 11px var(--f-mono);letter-spacing:.12em;text-transform:uppercase;background:var(--board);border:1px solid var(--line);color:var(--amber);padding:3px 8px;border-radius:4px;opacity:0;translate:-6px 0;transition:.25s;pointer-events:none}
+.stn:hover span,.stn.on span{opacity:1;translate:0 0}
+.train{position:absolute;left:21px;width:32px;height:44px;transform:translateY(-50%);z-index:3;transition:top .15s linear}
+.train svg{display:block;width:100%;height:100%;filter:drop-shadow(0 4px 10px rgba(0,0,0,.6))}
+.train .glow{animation:blink 1.4s infinite}
+@keyframes blink{50%{opacity:.25}}
+
+/* ---------- HERO ---------- */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:60px 0 40px}
+.board{background:var(--board);border:2px solid #232c40;border-radius:10px;font-family:var(--f-dot);color:var(--amber);box-shadow:0 0 0 6px #0f1522,0 30px 60px rgba(0,0,0,.5);overflow:hidden;max-width:880px}
+.board .bar{display:flex;justify-content:space-between;padding:8px 16px;background:#0d1320;border-bottom:1px solid #1f2840;font-size:12px;letter-spacing:.16em;color:#8d97b0}
+.board .row{display:grid;grid-template-columns:86px 1fr 96px 110px;gap:12px;padding:12px 16px;font-size:17px;border-bottom:1px solid #121a2b;align-items:center;letter-spacing:.06em}
+.board .row:last-child{border:0}
+.board .row.hd{font-size:11px;color:#6c7794;padding:8px 16px}
+.board .row .st{color:#5df0a4;cursor:pointer;user-select:none}
+.board .row .st.late{color:var(--signal)}
+.led{text-shadow:0 0 8px rgba(255,182,39,.55)}
+.hero h1{font-family:var(--f-display);font-weight:800;letter-spacing:-.045em;line-height:.88;font-size:clamp(54px,11.5vw,168px);margin:48px 0 8px}
+.hero h1 em{font-family:var(--f-serif);font-weight:400;font-style:italic;color:var(--amber);letter-spacing:-.02em;padding-right:.08em}
+.hero h1 .l2{display:block;-webkit-text-stroke:2px #e8ecf4;color:transparent}
+.sub{font-size:clamp(17px,2vw,22px);max-width:640px;color:#b7c0d4;margin-top:22px}
+.sub b{color:#fff;font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.chip{font:500 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;border:1px solid var(--line);border-radius:999px;color:#aab4cb;background:#0e1420}
+.cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+.btn{font:600 14px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:14px 22px;border-radius:6px;background:var(--paper);color:var(--ink);position:relative;transition:.2s;display:inline-flex;gap:10px;align-items:center;
+  -webkit-mask:radial-gradient(circle 7px at 0 50%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 7px at 100% 50%,#0000 98%,#000) right/51% 100% no-repeat;
+          mask:radial-gradient(circle 7px at 0 50%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 7px at 100% 50%,#0000 98%,#000) right/51% 100% no-repeat}
+.btn:hover{background:var(--amber);transform:translateY(-3px) rotate(-1deg)}
+.btn.alt{background:transparent;color:#e8ecf4;box-shadow:inset 0 0 0 1.5px #566080}
+.btn.alt:hover{background:#1a2234;box-shadow:inset 0 0 0 1.5px var(--amber)}
+.scroll-hint{margin-top:56px;font:500 12px var(--f-mono);letter-spacing:.2em;color:#66708a;text-transform:uppercase}
+.scroll-hint::after{content:' ↓';animation:bob 1.2s infinite;display:inline-block}
+@keyframes bob{50%{transform:translateY(5px)}}
+
+/* ---------- STATION SIGN ---------- */
+.sign{display:inline-block;margin-bottom:46px;max-width:100%}
+.sign .plate{background:var(--yellow);color:#111;border:4px solid #111;outline:4px solid var(--yellow);outline-offset:0;border-radius:6px;padding:14px 34px 12px;text-align:center;position:relative;box-shadow:0 0 0 8px var(--night),0 20px 40px rgba(0,0,0,.45)}
+.sign .plate::before,.sign .plate::after{content:'';position:absolute;top:100%;width:8px;height:34px;background:#3a4560}
+.sign .plate::before{left:22%}.sign .plate::after{right:22%}
+.sign .mr{font:800 clamp(18px,2.6vw,26px) var(--f-dev);line-height:1.2}
+.sign .en{font:800 clamp(38px,7vw,84px) var(--f-display);letter-spacing:-.04em;line-height:.95;text-transform:uppercase}
+.sign .en i{font-family:var(--f-serif);font-weight:400;text-transform:none;letter-spacing:-.02em}
+.sign .nb{display:flex;justify-content:space-between;gap:30px;margin-top:10px;padding-top:8px;border-top:3px solid #111;font:600 11px var(--f-mono);letter-spacing:.14em;text-transform:uppercase}
+.lead{max-width:620px;color:#aeb8cf;margin:-14px 0 40px;font-size:18px}
+
+/* ---------- ANNOUNCEMENTS ---------- */
+.ann{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.card{background:var(--night2);border:1px solid var(--line);border-radius:12px;padding:26px;position:relative;transition:.3s}
+.card:hover{border-color:var(--amber);transform:translateY(-4px)}
+.card .k{font:500 11px var(--f-mono);letter-spacing:.2em;color:var(--amber);text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.card .k::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 10px var(--amber);animation:blink 2s infinite}
+.card h3{font-size:22px;font-weight:600;letter-spacing:-.02em;margin-bottom:6px}
+.card p{color:#aab4cb;font-size:16px}
+
+/* ---------- COACH / SKILLS ---------- */
+.coach{background:var(--night2);border:2px solid var(--line);border-radius:26px 26px 14px 14px;padding:34px 28px 30px;position:relative}
+.coach::before{content:'COACH · S1';position:absolute;top:-13px;left:28px;background:var(--night);padding:0 12px;font:500 12px var(--f-mono);letter-spacing:.2em;color:var(--amber)}
+.seats{display:grid;grid-template-columns:repeat(auto-fill,minmax(138px,1fr));gap:14px}
+.seat{border-radius:10px 10px 4px 4px;padding:14px 14px 12px;background:var(--paper);color:var(--ink);position:relative;font-weight:600;transition:.25s;border-bottom:6px solid var(--teal)}
+.seat small{display:block;font:500 10px var(--f-mono);letter-spacing:.14em;color:#6c6757;margin-bottom:4px}
+.seat em{position:absolute;right:10px;top:10px;font:600 9px var(--f-mono);letter-spacing:.1em;font-style:normal;color:var(--teal)}
+.seat:hover{transform:translateY(-5px) rotate(-1.5deg)}
+.seat.learn{background:transparent;color:#cfd6e6;border:2px dashed #596483;border-bottom:6px dashed var(--amber)}
+.seat.learn small{color:#7e89a6}.seat.learn em{color:var(--amber);animation:blink 1.4s infinite}
+
+/* ---------- TICKETS ---------- */
+.tickets{display:grid;grid-template-columns:repeat(auto-fill,minmax(318px,1fr));gap:30px 26px}
+.ticket{--r:0deg;background:var(--paper);color:var(--ink);position:relative;padding:0;transition:transform .35s cubic-bezier(.2,.9,.3,1.4);transform:rotate(var(--r));
+  -webkit-mask:radial-gradient(circle 13px at 0 64%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 13px at 100% 64%,#0000 98%,#000) right/51% 100% no-repeat;
+          mask:radial-gradient(circle 13px at 0 64%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 13px at 100% 64%,#0000 98%,#000) right/51% 100% no-repeat;
+  filter:drop-shadow(0 14px 18px rgba(0,0,0,.4))}
+.ticket:hover{transform:rotate(0) translateY(-10px) scale(1.02)}
+.ticket .top{display:flex;justify-content:space-between;align-items:center;background:var(--ink);color:var(--paper);padding:10px 20px;font:500 11px var(--f-mono);letter-spacing:.16em;text-transform:uppercase}
+.ticket .top b{color:var(--amber);font-weight:600}
+.ticket .main{padding:20px 22px 18px}
+.ticket .ico{font-size:34px;line-height:1}
+.ticket h3{font-size:25px;font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:10px 0 8px}
+.ticket p{font-size:15px;color:#3b3a40;line-height:1.5}
+.ticket .rt{display:flex;align-items:center;gap:8px;margin-top:16px;font:600 11px var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:#6a6350}
+.ticket .rt i{flex:1;border-top:2px dashed #b5a98a;position:relative}
+.ticket .rt i::after{content:'➤';position:absolute;right:-3px;top:-10px;font-size:12px;color:var(--signal)}
+.ticket .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.ticket .tags span{font:500 10px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border:1px solid #a99d7d;border-radius:3px}
+.ticket .perf{border-top:3px dotted #bdb08f;padding:14px 22px 16px;display:flex;justify-content:space-between;align-items:center;background:var(--paper2)}
+.ticket .perf .adm{font:600 11px var(--f-mono);letter-spacing:.2em;color:#6a6350}
+.ticket .perf a{font:600 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:#fff;background:var(--signal);padding:8px 13px;border-radius:4px;transition:.2s}
+.ticket .perf a:hover{background:var(--ink)}
+.ticket::after{content:'PUNCHED';position:absolute;right:16px;top:56px;font:800 15px var(--f-mono);letter-spacing:.2em;color:var(--signal);border:3px solid var(--signal);padding:2px 10px;border-radius:5px;transform:rotate(-14deg) scale(1.6);opacity:0;transition:.25s;pointer-events:none}
+.ticket:hover::after{opacity:.8;transform:rotate(-14deg) scale(1)}
+
+/* ---------- ROSTER (experience) ---------- */
+.roster{display:grid;gap:22px}
+.duty{display:grid;grid-template-columns:150px 1fr;background:var(--night2);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.duty .when{background:var(--amber);color:#111;padding:26px 20px;font:800 26px var(--f-display);letter-spacing:-.03em;line-height:1;display:flex;flex-direction:column;justify-content:space-between}
+.duty .when small{font:600 10px var(--f-mono);letter-spacing:.18em;text-transform:uppercase}
+.duty .body{padding:26px 28px}
+.duty .org{font:500 12px var(--f-mono);letter-spacing:.1em;color:var(--amber);text-transform:uppercase;margin-bottom:6px}
+.duty h3{font-size:26px;font-weight:600;letter-spacing:-.025em;margin-bottom:10px}
+.duty p{color:#aab4cb}
+.duty p strong{color:#fff}
+
+/* ---------- PASSES ---------- */
+.passes{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px}
+.pass{background:linear-gradient(135deg,#1b2540,#101728);border:1px solid #33416a;border-radius:16px;padding:26px;position:relative;overflow:hidden;transition:.3s}
+.pass::before{content:'';position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;border:18px solid rgba(255,182,39,.12)}
+.pass::after{content:'';position:absolute;left:24px;top:18px;width:16px;height:16px;border-radius:50%;background:var(--night);border:2px solid #33416a}
+.pass:hover{transform:translateY(-6px);border-color:var(--amber)}
+.pass .t{font:500 11px var(--f-mono);letter-spacing:.2em;color:var(--amber);text-transform:uppercase;margin:16px 0 14px 28px}
+.pass .ico{font-size:30px}
+.pass h3{font-size:21px;font-weight:600;letter-spacing:-.02em;margin:8px 0 6px;line-height:1.25}
+.pass .v{font:500 12px var(--f-mono);color:#8e9ac0;letter-spacing:.04em;margin-bottom:10px}
+.pass p{color:#aab4cb;font-size:15px}
+.pass p b{color:var(--amber)}
+
+/* ---------- EXPRESS (research) ---------- */
+.express{background:var(--paper);color:var(--ink);border-radius:8px;display:grid;grid-template-columns:1fr 210px;position:relative;filter:drop-shadow(0 20px 30px rgba(0,0,0,.45));
+  -webkit-mask:radial-gradient(circle 16px at 0 50%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 16px at 100% 50%,#0000 98%,#000) right/51% 100% no-repeat;
+          mask:radial-gradient(circle 16px at 0 50%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 16px at 100% 50%,#0000 98%,#000) right/51% 100% no-repeat}
+.express .l{padding:34px 34px 30px}
+.express .band{display:inline-block;background:var(--signal);color:#fff;font:700 11px var(--f-mono);letter-spacing:.22em;padding:5px 12px;border-radius:3px;margin-bottom:16px}
+.express h3{font-size:clamp(24px,3.4vw,38px);font-weight:800;letter-spacing:-.035em;line-height:1.08;margin-bottom:14px}
+.express h3 em{font-family:var(--f-serif);font-weight:400}
+.express p{color:#3b3a40;max-width:560px}
+.express .jr{margin-top:18px;font:500 12px var(--f-mono);letter-spacing:.04em;color:#5c5644;line-height:1.7}
+.express .r{border-left:3px dotted #b5a98a;padding:34px 22px;background:var(--paper2);display:flex;flex-direction:column;justify-content:space-between;gap:20px}
+.express .r div{font:500 11px var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:#6a6350}
+.express .r b{display:block;font:800 30px var(--f-display);letter-spacing:-.03em;color:var(--ink);margin-top:2px}
+.bars{display:flex;gap:3px;height:46px;align-items:stretch}
+.bars i{background:var(--ink);flex:1}.bars i:nth-child(3n){flex:2}.bars i:nth-child(4n){flex:.6}.bars i:nth-child(5n){flex:3}
+
+/* ---------- ROUTE (goals) ---------- */
+.route{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding-top:34px}
+.route::before{content:'';position:absolute;left:0;right:0;top:12px;border-top:4px dashed #44506f}
+.route::after{content:'';position:absolute;left:0;top:12px;width:14%;border-top:4px solid var(--amber);box-shadow:0 0 12px var(--amber)}
+.goal{position:relative;background:var(--night2);border:1px solid var(--line);border-radius:12px;padding:22px;transition:.3s}
+.goal::before{content:'';position:absolute;top:-30px;left:22px;width:18px;height:18px;border-radius:50%;background:var(--night);border:4px solid var(--amber)}
+.goal:hover{transform:translateY(-6px);border-color:var(--amber)}
+.goal .n{font:500 11px var(--f-mono);letter-spacing:.2em;color:var(--amber);margin-bottom:10px}
+.goal p{color:#c5cde0;font-size:16px}
+.goal p b{color:#fff}
+
+/* ---------- MARQUEE ---------- */
+.marq{margin:90px -28px 0 -92px;background:var(--amber);color:#111;overflow:hidden;transform:rotate(-1.4deg);border-block:4px solid #111}
+.marq div{display:flex;gap:50px;white-space:nowrap;padding:16px 0;width:max-content;animation:slide 26s linear infinite;font:800 clamp(24px,3.6vw,42px) var(--f-display);letter-spacing:-.03em;text-transform:uppercase}
+.marq span::after{content:'  ✦';margin-left:50px}
+@keyframes slide{to{transform:translateX(-50%)}}
+.marq small{font:500 12px var(--f-mono);letter-spacing:.2em;align-self:center}
+
+/* ---------- CONTACT ---------- */
+.end{text-align:center;padding:120px 0 50px}
+.end .tag{font:500 12px var(--f-mono);letter-spacing:.3em;text-transform:uppercase;color:var(--amber)}
+.end h2{font-size:clamp(46px,9.5vw,130px);font-weight:800;letter-spacing:-.05em;line-height:.9;margin:20px 0 22px}
+.end h2 em{font-family:var(--f-serif);font-weight:400;color:var(--amber)}
+.end p{color:#aab4cb;max-width:520px;margin:0 auto 34px;font-size:18px}
+.mail{display:inline-block;font:700 clamp(15px,2.4vw,26px) var(--f-mono);color:#111;background:var(--amber);padding:16px 26px;border-radius:8px;text-decoration:none;transition:.25s;word-break:break-all}
+.mail:hover{background:#fff;transform:scale(1.03) rotate(-1deg)}
+.end .cta{justify-content:center}
+.bumper{margin:80px auto 0;width:min(640px,100%);height:26px;border-top:6px solid #566080;position:relative}
+.bumper::before,.bumper::after{content:'';position:absolute;top:-6px;width:8px;height:26px;background:var(--signal);border-radius:2px}
+.bumper::before{left:30%}.bumper::after{right:30%}
+footer{text-align:center;padding:30px 0 50px;font:500 12px var(--f-mono);letter-spacing:.14em;color:#6c7794;text-transform:uppercase}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .8s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+.ticket.rv.in{transform:rotate(var(--r))}
+.ticket.rv.in:hover{transform:rotate(0) translateY(-10px) scale(1.02)}
+
+/* ---------- responsive ---------- */
+@media(max-width:860px){
+  .wrap{padding:0 18px 0 54px}
+  .rail{width:40px}.rail .track{left:20px}.rail .done{left:19px}
+  .stn{left:12px;width:16px;height:16px}.stn span{display:none}
+  .train{left:6px;width:28px;height:38px}
+  .ann{grid-template-columns:1fr}
+  .board .row{grid-template-columns:60px 1fr 70px;font-size:14px}.board .row>:nth-child(4){display:none}
+  .duty{grid-template-columns:1fr}.duty .when{flex-direction:row;align-items:center;padding:16px 20px}
+  .express{grid-template-columns:1fr}.express .r{border-left:0;border-top:3px dotted #b5a98a;flex-direction:row;flex-wrap:wrap}
+  .route{grid-template-columns:1fr;padding-top:0;padding-left:26px}
+  .route::before{left:6px;right:auto;top:0;bottom:0;border-top:0;border-left:4px dashed #44506f}
+  .route::after{display:none}
+  .goal::before{top:24px;left:-29px}
+  .marq{margin:80px -18px 0 -54px}
+  .sign .nb{gap:12px;font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- RAIL: scroll-driven train -->
+<aside class="rail" aria-hidden="true">
+  <div class="track"></div>
+  <div class="done" id="done"></div>
+  <div id="stns"></div>
+  <div class="train" id="train">
+    <svg viewBox="0 0 32 44" fill="none">
+      <rect x="3" y="2" width="26" height="40" rx="7" fill="#f4ead5"/>
+      <rect x="3" y="2" width="26" height="9" rx="5" fill="#3a63e0"/>
+      <rect x="3" y="30" width="26" height="4" fill="#ec4a32"/>
+      <rect x="7" y="13" width="18" height="11" rx="2" fill="#0b0f17"/>
+      <rect x="9" y="15" width="6" height="7" fill="#ffb627" opacity=".85"/>
+      <rect x="17" y="15" width="6" height="7" fill="#ffb627" opacity=".5"/>
+      <circle class="glow" cx="9" cy="38" r="2.4" fill="#ffb627"/>
+      <circle class="glow" cx="23" cy="38" r="2.4" fill="#ffb627"/>
+    </svg>
+  </div>
+</aside>
+
+<main class="wrap">
+
+<!-- HERO -->
+<header class="hero" id="top" data-name="Palghar" data-mr="पालघर">
+  <div class="board" role="img" aria-label="Departure board: Prachi Kiran Sharma, AIML engineer, platform 1, on time">
+    <div class="bar"><span>PALGHAR LINE · DEPARTURES</span><span id="clock">--:--:-- IST</span></div>
+    <div class="row hd"><span>NO.</span><span>DESTINATION</span><span>PLAT.</span><span>STATUS</span></div>
+    <div class="row led"><span>2026</span><span id="dest">AIML ENGINEER</span><span>01</span><span class="st" id="status" title="click me">ON TIME</span></div>
+    <div class="row led"><span>0408</span><span>PUBLISHED ML RESEARCH</span><span>02</span><span>BOARDING</span></div>
+    <div class="row led"><span>0511</span><span>AI-POWERED WEB TOOLS</span><span>03</span><span>ON TIME</span></div>
+  </div>
+
+  <h1><span>Prachi</span> <em>Kiran</em><span class="l2">Sharma.</span></h1>
+
+  <p class="sub">Second-year <b>AIML engineering student</b>, <b>published ML researcher</b> and web developer, building AI-powered tools — one new thing every week, mostly written on a train.</p>
+
+  <div class="chips">
+    <span class="chip">🎓 St. John College of Engineering</span>
+    <span class="chip">🤖 AIML · SE Year II</span>
+    <span class="chip">📍 Palghar, Maharashtra</span>
+  </div>
+
+  <div class="cta">
+    <a class="btn" href="#projects">Board the projects ➤</a>
+    <a class="btn alt" href="https://www.linkedin.com/in/prachi-sharma-962a783b0" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="btn alt" href="https://github.com/prachisharma0103" target="_blank" rel="noopener">GitHub</a>
+    <a class="btn alt" href="mailto:prachi.k.sharma010308@gmail.com">Email</a>
+  </div>
+  <div class="scroll-hint">Scroll to ride the line</div>
+</header>
+
+<!-- ABOUT -->
+<section id="about" data-name="About">
+  <div class="sign rv"><div class="plate"><div class="mr">परिचय</div><div class="en">A little about <i>myself</i></div><div class="nb"><span>← Palghar</span><span>Stn 01 / 08</span><span>Skills →</span></div></div></div>
+  <div class="ann" id="ann"></div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" data-name="Skills">
+  <div class="sign rv"><div class="plate"><div class="mr">कौशल्य</div><div class="en">What I <i>know</i></div><div class="nb"><span>← About</span><span>Stn 02 / 08</span><span>Projects →</span></div></div></div>
+  <div class="coach rv"><div class="seats" id="seats"></div></div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" data-name="Projects">
+  <div class="sign rv"><div class="plate"><div class="mr">प्रकल्प</div><div class="en">What I've <i>built</i></div><div class="nb"><span>← Skills</span><span>Stn 03 / 08</span><span>Experience →</span></div></div></div>
+  <p class="lead">Eight tickets, all valid for travel on the live web. Hover to punch one.</p>
+  <div class="tickets" id="tickets"></div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" data-name="Experience">
+  <div class="sign rv"><div class="plate"><div class="mr">अनुभव</div><div class="en">Where I've <i>worked</i></div><div class="nb"><span>← Projects</span><span>Stn 04 / 08</span><span>Passes →</span></div></div></div>
+  <div class="roster">
+    <article class="duty rv">
+      <div class="when"><small>Duty 01</small>2026<small>● Active</small></div>
+      <div class="body"><div class="org">InAmigos Foundation</div><h3>AI Web Development Intern</h3><p>Building AI-powered websites, conducting NGO research, visual design mockups, and data science analysis. <strong>Top 3 Performer in Task 1.</strong></p></div>
+    </article>
+    <article class="duty rv">
+      <div class="when"><small>Duty 02</small>2026<small>SJCEM</small></div>
+      <div class="body"><div class="org">SJCEM · Supervised by Mr. Ashish Khot &amp; Mr. Avinash D. Chavan</div><h3>Java Swing UI Development Intern</h3><p>Built <strong>InventoryPro</strong> — a full Java Swing + MySQL desktop application with login, CRUD operations, dark UI, and a low-stock alert system.</p></div>
+    </article>
+  </div>
+</section>
+
+<!-- CERTS -->
+<section id="passes" data-name="Passes">
+  <div class="sign rv"><div class="plate"><div class="mr">प्रमाणपत्रे</div><div class="en">What I've <i>earned</i></div><div class="nb"><span>← Experience</span><span>Stn 05 / 08</span><span>Research →</span></div></div></div>
+  <div class="passes">
+    <article class="pass rv"><div class="t">Season Pass · 01</div><div class="ico">🏆</div><h3>Programming Skills in C/C++</h3><div class="v">IT HUB Live | SJCEM · Aug–Dec 2025</div><p>Structured course covering fundamentals and advanced concepts in C and C++. Awarded <b>A+ grade</b>.</p></article>
+    <article class="pass rv"><div class="t">Season Pass · 02</div><div class="ico">🤖</div><h3>LLM For Young Developers — Foundational Course</h3><div class="v">INDIAai × Meta × NASSCOM FutureSkills Prime · Feb 2026</div><p>Foundational course on Large Language Models under the national INDIAai initiative. Covered AI/ML applications and prompt engineering.</p></article>
+    <article class="pass rv"><div class="t">Season Pass · 03</div><div class="ico">🎖️</div><h3>100K Milestone Honor</h3><div class="v">CampusCrew · 2026</div><p>Recognized as part of the CampusCrew <b>100K milestone</b> community achievement.</p></article>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research" data-name="Research">
+  <div class="sign rv"><div class="plate"><div class="mr">संशोधन</div><div class="en">Published <i>work</i></div><div class="nb"><span>← Passes</span><span>Stn 06 / 08</span><span>Goals →</span></div></div></div>
+  <article class="express rv">
+    <div class="l">
+      <span class="band">SPECIAL EXPRESS · JOURNAL PUBLICATION · 2026</span>
+      <h3>Hybrid CNN-LSTM Architecture: <em>Early Heart Disease Prediction</em> from Electronic Health Records</h3>
+      <p>Designed a Hybrid CNN-LSTM deep learning model for early detection of heart disease from EHR data. Indexed on Google Scholar, Crossref, DOI, and WorldCat.</p>
+      <div class="jr">Journal of Electronics &amp; Telecommunication System Engineering (JoETSE)<br>MAT Journals Pvt. Ltd. · Vol. 3, Issue 1 · e-ISSN: 3048-6645</div>
+    </div>
+    <div class="r">
+      <div>Class<b>Research</b></div>
+      <div>Volume<b>3 · 1</b></div>
+      <div class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+  </article>
+</section>
+
+<!-- GOALS -->
+<section id="goals" data-name="Goals">
+  <div class="sign rv"><div class="plate"><div class="mr">ध्येय</div><div class="en">Where I'm <i>headed</i></div><div class="nb"><span>← Research</span><span>Stn 07 / 08</span><span>Terminus →</span></div></div></div>
+  <p class="lead">The next four stops on the line. Track is still being laid.</p>
+  <div class="route">
+    <div class="goal rv"><div class="n">NEXT STOP 01</div><p>Become an <b>AIML Engineer</b> and pursue a Master's degree abroad (US or Canada) to work on cutting-edge AI research.</p></div>
+    <div class="goal rv"><div class="n">NEXT STOP 02</div><p>Master <b>Full-Stack Web Development</b> — HTML, CSS, JavaScript, React, and AI integration.</p></div>
+    <div class="goal rv"><div class="n">NEXT STOP 03</div><p>Grow my <b>freelance career</b> on Fiverr and build products that real people use every day.</p></div>
+    <div class="goal rv"><div class="n">NEXT STOP 04</div><p>Publish more <b>ML research</b> and contribute meaningfully to the open-source AI community.</p></div>
+  </div>
+
+  <div class="marq" aria-label="Hobbies: reading books, drawing, travelling, music">
+    <div id="marq"></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="end" data-name="Terminus">
+  <div class="tag">✦ Terminus · All change please ✦</div>
+  <h2 class="rv">Let's <em>connect.</em></h2>
+  <p class="rv">I'm always open to connecting with fellow developers, designers and dreamers. Feel free to reach out!</p>
+  <a class="mail rv" href="mailto:prachi.k.sharma010308@gmail.com">prachi.k.sharma010308@gmail.com</a>
+  <div class="cta rv">
+    <a class="btn alt" href="https://www.linkedin.com/in/prachi-sharma-962a783b0" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="btn alt" href="https://github.com/prachisharma0103" target="_blank" rel="noopener">GitHub</a>
+  </div>
+  <div class="bumper" aria-hidden="true"></div>
+</section>
+
+<footer>✦ Made with love by Prachi Kiran Sharma — 2026 ✦ Mind the gap ✦</footer>
+</main>
+
+<script>
+/* ---------- data ---------- */
+const announcements=[
+ ['💻','My Journey','Started web dev from scratch in May 2026 — HTML to JavaScript in weeks. Now building AI-powered tools and full-stack projects with real users.'],
+ ['🎓','Education','Second year student (SE III-1) at St. John College of Engineering & Management, Palghar, specializing in AI & Machine Learning, University of Mumbai.'],
+ ['🌍','Location','Based in Palghar, Maharashtra. Daily train commuter, constant learner, building something new every week.'],
+ ['⚡','Currently','AI Web Dev intern at InAmigos Foundation. Java Swing UI intern at SJCEM. Published ML researcher. Freelancing on Fiverr.']
+];
+const skills=[['HTML',1],['CSS',1],['JavaScript',1],['Python',1],['C / C++',1],['Java',1],['SQL',1],['AI / LLM Integration',1],['Figma',0]];
+const projects=[
+ ['📅','Whole-Week Timetable Agent','An AI-powered full-week schedule manager with live clock, smart notifications, and an integrated Anthropic API chat assistant. Built for real college use.','https://prachisharma0103.github.io/whole-week-timetable',['AI chat','Anthropic API','Live clock']],
+ ['🤖','Monday Agent','A focused day-specific timetable agent for Mondays, with AI chat integration via the Anthropic API. Deployed and shared with classmates.','https://prachisharma0103.github.io/monday-agent',['AI chat','Anthropic API','Deployed']],
+ ['🌿','NayePankh Foundation Website','Full NGO website built for a frontend internship task. Multi-section layout with mission, programs, and contact. Live on GitHub Pages.','https://prachisharma0103.github.io/Nayepankh/',['NGO','Internship','Multi-section']],
+ ['🛍️','Clean Girl Shop','AI-powered fashion shopping page with clothing, footwear and accessories. Features sale table, newsletter form and delivery info dropdowns.','https://prachisharma0103.github.io/clean-girl',['Fashion','AI-powered','Forms']],
+ ['🍕','Galaxy Restaurant','Fully styled restaurant website with menu sections for starters, mains, desserts, a booking form and contact info. Built with HTML & CSS.','https://prachisharma0103.github.io/galaxy-restaurant',['HTML','CSS','Booking form']],
+ ['🐾','Dome Pet Store','Pet adoption website with 8 animal categories, breed info, adoption form and contact section.','https://prachisharma0103.github.io/dome-pet-store',['8 categories','Adoption form']],
+ ['📦','StockPro','A smart inventory & stock management system info page with real-time tracking, features, how it works and FAQs. Built with HTML & CSS.','https://prachisharma0103.github.io/stockpro',['HTML','CSS','Inventory']],
+ ['🦸','Superhero Quiz','An interactive superhero-themed quiz with creative design. Built with HTML, CSS & JavaScript.','https://prachisharma0103.github.io/superhero',['HTML','CSS','JavaScript']]
+];
+const hobbies=['Reading Books','Drawing','Travelling','Music'];
+const dests=['AIML ENGINEER','ML RESEARCHER','WEB DEVELOPER','AI TOOL BUILDER'];
+
+/* ---------- render ---------- */
+const $=s=>document.querySelector(s);
+$('#ann').innerHTML=announcements.map((a,i)=>`<article class="card rv"><div class="k">Announcement 0${i+1}</div><h3>${a[0]} ${a[1]}</h3><p>${a[2]}</p></article>`).join('');
+$('#seats').innerHTML=skills.map((s,i)=>`<div class="seat ${s[1]?'':'learn'}"><small>SEAT ${String(i+1).padStart(2,'0')}${s[1]?'A':'W'}</small>${s[0]}<em>${s[1]?'✓ BOARDED':'LEARNING'}</em></div>`).join('');
+const rots=[-1.6,1.2,-.8,1.8,-1.2,.9,-1.9,1.4];
+$('#tickets').innerHTML=projects.map((p,i)=>`
+<article class="ticket rv" style="--r:${rots[i]}deg">
+  <div class="top"><span>Web Line · Single</span><b>No. ${String(i+1).padStart(4,'0')}</b></div>
+  <div class="main"><div class="ico">${p[0]}</div><h3>${p[1]}</h3><p>${p[2]}</p>
+    <div class="rt"><span>Palghar</span><i></i><span>Live web</span></div>
+    <div class="tags">${p[4].map(t=>`<span>${t}</span>`).join('')}</div></div>
+  <div class="perf"><span class="adm">ADMIT ONE</span><a href="${p[3]}" target="_blank" rel="noopener">View live ➤</a></div>
+</article>`).join('');
+const mh=[...hobbies,...hobbies,...hobbies,...hobbies].map(h=>`<span>${h}</span>`).join('');
+$('#marq').innerHTML=mh;
+
+/* ---------- rail: stations + train ---------- */
+const secs=[...document.querySelectorAll('[data-name]')];
+const stns=$('#stns'),train=$('#train'),done=$('#done');
+const vh=()=>innerHeight, top0=()=>vh()*.09, span=()=>vh()*.82;
+secs.forEach((s,i)=>{
+  const a=document.createElement('a');a.className='stn';a.href='#'+s.id;
+  a.innerHTML=`<span>${s.dataset.name}</span>`;a.dataset.i=i;stns.appendChild(a);
+});
+function placeStations(){
+  [...stns.children].forEach((a,i)=>{a.style.top=(top0()+span()*(i/(secs.length-1)))+'px'});
+}
+function onScroll(){
+  const max=document.documentElement.scrollHeight-innerHeight;
+  const p=max>0?Math.min(1,Math.max(0,scrollY/max)):0;
+  const y=top0()+span()*p;
+  train.style.top=y+'px';
+  done.style.height=(span()*p)+'px';
+}
+placeStations();onScroll();
+addEventListener('scroll',onScroll,{passive:true});
+addEventListener('resize',()=>{placeStations();onScroll()});
+
+/* active station */
+const io=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting){
+    const i=secs.indexOf(e.target);
+    [...stns.children].forEach((a,j)=>a.classList.toggle('on',j===i));
+  }});
+},{rootMargin:'-40% 0px -50% 0px'});
+secs.forEach(s=>io.observe(s));
+
+/* reveal */
+const rio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%4)*70+'ms';rio.observe(el)});
+
+/* ---------- board: clock, rotating destination, status easter egg ---------- */
+function tick(){
+  const t=new Date().toLocaleTimeString('en-GB',{timeZone:'Asia/Kolkata',hour12:false});
+  $('#clock').textContent=t+' IST';
+}
+tick();setInterval(tick,1000);
+let d=0;const dest=$('#dest');
+setInterval(()=>{
+  d=(d+1)%dests.length;dest.style.opacity=0;
+  setTimeout(()=>{dest.textContent=dests[d];dest.style.opacity=1},220);
+},2600);
+dest.style.transition='opacity .22s';
+const st=$('#status');
+st.addEventListener('click',()=>{
+  const late=st.classList.toggle('late');
+  st.textContent=late?'CHAI BREAK':'ON TIME';
+});
+</script>
+</body>
+</html>
